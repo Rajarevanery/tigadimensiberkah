@@ -1,11 +1,4 @@
-// import { PrismaClient } from "../../generated/prisma";
+import "dotenv/config";
 
-const db_information = {
-  port: process.env.PORT,
-  access_jwt_secret: process.env.ACCESS_JWT_SECRET,
-};
-
-const { port, access_jwt_secret } = db_information;
-// const prisma = new PrismaClient();
-
-// export { port, access_jwt_secret, prisma };
+export const port = Number(process.env.PORT)
+export const access_jwt_secret = process.env.ACCESS_JWT_SECRET

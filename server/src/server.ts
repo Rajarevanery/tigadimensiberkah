@@ -1,13 +1,12 @@
-import dotenv from "dotenv";
-dotenv.config();
-
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
 import { port } from "config/db.config";
+import helmet from "helmet";
 
 const app = express();
+
+app.use(helmet());
 
 app.use(
   cors({
@@ -17,9 +16,8 @@ app.use(
 );
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // ! API HERE
 
