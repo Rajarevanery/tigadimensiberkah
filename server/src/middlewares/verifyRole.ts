@@ -1,5 +1,6 @@
 import { Response, NextFunction } from "express";
-import { AuthRequest, Role } from "types/types";
+import { AuthRequest } from "types/types";
+import { Role } from "../../prisma/generated/prisma/enums";
 
 export const verifyRole =
   (allowedRoles: Role[]) =>

@@ -1,12 +1,8 @@
 import { Request } from "express";
-
-export enum Role {
-  ADMIN,
-  KARYAWAN,
-}
+import { Role } from "../../prisma/generated/prisma/enums";
 
 export type IJWTPayload = {
-  id: number;
+  id: string;
   nama: string;
   role: Role;
 };
@@ -14,3 +10,8 @@ export type IJWTPayload = {
 export interface AuthRequest extends Request {
   user?: IJWTPayload;
 }
+
+export type ILoginRequest = {
+  email: string;
+  password: string;
+};
