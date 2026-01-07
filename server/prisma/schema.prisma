@@ -33,7 +33,7 @@ model User {
 
 model Wilayah {
   id           String         @id @default(uuid()) @db.Uuid
-  nama_wilayah String
+  nama_wilayah String @unique
 
   users        UserWilayah[]
 }
