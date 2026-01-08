@@ -4,6 +4,7 @@ import Home from "./_global/Home";
 import ErrorPage from "./_global/ErrorPage";
 import Forbidden from "./_global/Forbidden";
 import Loading from "./_global/Loading";
+import Login from "./_auth/pages/Login";
 
 function App() {
   return (
@@ -26,6 +27,10 @@ function App() {
         <Route path="*" element={<ErrorPage />} />
         <Route path="403" element={<Forbidden />} />
         <Route path="loading" element={<Loading />} />
+
+        
+
+        <Route path="/login" element={<Login />} />
       </Routes>
     </main>
   );
