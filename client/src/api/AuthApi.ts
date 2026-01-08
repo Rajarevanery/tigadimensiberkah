@@ -3,8 +3,21 @@ import api from "../lib/axios/api";
 import type { ILogin, IUser } from "../types/types";
 
 export const loginUser = async (data: ILogin): Promise<IUser> => {
-  const res = await api.post("/auth/login", data);
-  return res.data;
+  try {
+    const res = await api.post("/auth/login", data);
+    return res.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error("Axios error:", {
+        message: error.message,
+        status: error.response?.status,
+        data: error.response?.data,
+      });
+    } else {
+      console.error("Unknown error:", error);
+    }
+    throw error;
+  }
 };
 
 export const getUser = async (): Promise<IUser | null> => {

@@ -8,7 +8,7 @@ export const useLogin = () => {
     mutationFn: (data: ILogin) => loginUser(data),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["get_user"],
+        queryKey: ["user"],
       });
     },
   });

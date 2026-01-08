@@ -3,7 +3,7 @@ import { getUser } from "../../api/AuthApi";
 
 export const useGetUser = () => {
   return useQuery({
-    queryKey: ["get_user"],
+    queryKey: ["user"],
     queryFn: async () => await getUser(),
   });
 };
