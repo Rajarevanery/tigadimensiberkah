@@ -1,7 +1,9 @@
 import { Route, Routes } from "react-router";
 import { ToastContainer } from "react-toastify";
-import Home from "./global_pages/Home";
-import ErrorPage from "./global_pages/ErrorPage";
+import Home from "./_global/Home";
+import ErrorPage from "./_global/ErrorPage";
+import Forbidden from "./_global/Forbidden";
+import Loading from "./_global/Loading";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
       <Routes>
         <Route index element={<Home />} />
         <Route path="*" element={<ErrorPage />} />
+        <Route path="403" element={<Forbidden />} />
+        <Route path="loading" element={<Loading />} />
       </Routes>
     </main>
   );

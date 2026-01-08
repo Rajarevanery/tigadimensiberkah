@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from "react-router";
-import Loading from "../global_pages/Loading";
+import Loading from "../_global/Loading";
 import { useAuthContext } from "../context/auth-context";
 
 export default function ProtectedRoute() {
