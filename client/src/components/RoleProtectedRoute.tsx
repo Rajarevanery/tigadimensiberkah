@@ -1,13 +1,20 @@
 import { Outlet, Navigate } from "react-router";
 import Loading from "../global_pages/Loading";
 import { useAuthContext } from "../context/auth-context";
+import type { Role } from "../types/types";
 
-export default function ProtectedRoute() {
-  const { isAuthenticated, isPending } = useAuthContext();
+export default function RoleProtectedRoute({
+  allowedRoles,
+}: {
+  allowedRoles: Role[];
+}) {
+  const { isAuthenticated, isPending, role } = useAuthContext();
 
   if (isPending) return <Loading />;
 
   if (!isAuthenticated) return <Navigate to="/login" replace />;
+
+  if (!allowedRoles.includes(role)) return <Navigate to="/403" replace />;
 
   return <Outlet />;
 }
