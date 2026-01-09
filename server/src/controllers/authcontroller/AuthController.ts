@@ -34,9 +34,9 @@ export const login = async (
     const isPWMatch = await bcrypt.compare(password, user.password);
 
     if (isPWMatch) {
-      const { id, nama, role } = user;
+      const { id, nama, role, email: userEmail } = user;
 
-      const accessToken = generateAccessToken({ id, nama, role });
+      const accessToken = generateAccessToken({ id, userEmail, nama, role });
 
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
@@ -47,7 +47,7 @@ export const login = async (
       res.status(200).json({
         auth: true,
         token: accessToken,
-        user: { id, email, role },
+        user: { id, userEmail, role, nama },
       });
     } else {
       res.status(400).json({ auth: false, message: "Wrong credential 🤔" });

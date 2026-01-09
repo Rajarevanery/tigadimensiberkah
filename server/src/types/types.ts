@@ -4,6 +4,7 @@ import { Role } from "../../prisma/generated/prisma/enums";
 export type IJWTPayload = {
   id: string;
   nama: string;
+  userEmail: string
   role: Role;
 };
 
@@ -15,3 +16,4 @@ export type ILoginRequest = {
   email: string;
   password: string;
 };
+

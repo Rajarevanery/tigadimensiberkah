@@ -4,9 +4,12 @@ import type { ILogin } from "../../types/types";
 import { toast } from "react-toastify";
 import { MdOutlineEmail } from "react-icons/md";
 import { TbEye, TbEyeOff, TbLockPassword } from "react-icons/tb";
+import { ImSpinner8 } from "react-icons/im";
+import { useNavigate } from "react-router";
 
 const Login = () => {
-  const { mutateAsync: loginUser } = useLogin();
+  const { mutateAsync: loginUser, isPending } = useLogin();
+  const navigate = useNavigate();
 
   const [user, setUser] = useState<ILogin>({
     email: "",
@@ -36,8 +39,13 @@ const Login = () => {
     try {
       const response = await loginUser(user);
 
-      if (response.nama) {
-        return toast.success(`Login Berhasil, selamat datang ${response.nama}`);
+      console.log(response);
+
+      if (response.user.nama) {
+        navigate("/webapp/dashboard");
+        return toast.success(
+          `Login Berhasil, selamat datang ${response.user.nama}`
+        );
       }
     } catch (error) {
       toast.error("Login gagal");
@@ -110,8 +118,14 @@ const Login = () => {
             </div>
           </fieldset>
 
-          <button className="bg-button-primary hover:brightness-80 transition cursor-pointer text-white p-6 w-full mt-10 rounded-lg font-semibold">
-            Masuk
+          <button className="bg-button-primary hover:brightness-80 transition cursor-pointer text-white p-6 w-full mt-10 rounded-lg font-semibold flex justify-center items-center">
+            {isPending ? (
+              <i className="">
+                <ImSpinner8 size={30} className="animate-spin" />
+              </i>
+            ) : (
+              "Masuk"
+            )}
           </button>
         </form>
       </div>

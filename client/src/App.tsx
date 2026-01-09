@@ -1,10 +1,11 @@
 import { Route, Routes } from "react-router";
 import { ToastContainer } from "react-toastify";
-import Home from "./_global/Home";
 import ErrorPage from "./_global/ErrorPage";
-import Forbidden from "./_global/Forbidden";
 import Loading from "./_global/Loading";
 import Login from "./_auth/pages/Login";
+import WebAppLayout from "./_webapp/layout/WebAppLayout";
+import Dashboard from "./_webapp/pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -23,14 +24,16 @@ function App() {
       />
 
       <Routes>
-        <Route index element={<Home />} />
         <Route path="*" element={<ErrorPage />} />
-        <Route path="403" element={<Forbidden />} />
         <Route path="loading" element={<Loading />} />
 
-        
-
         <Route path="/login" element={<Login />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/webapp" element={<WebAppLayout />}>
+            <Route path="dashboard" element={<Dashboard />} />
+          </Route>
+        </Route>
       </Routes>
     </main>
   );

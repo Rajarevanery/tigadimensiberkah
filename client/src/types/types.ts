@@ -11,3 +11,9 @@ export type IUser = {
   nama: string;
   role: Role;
 };
+
+export type LoginResponse = {
+  auth: boolean;
+  token: string;
+  user: IUser;
+};

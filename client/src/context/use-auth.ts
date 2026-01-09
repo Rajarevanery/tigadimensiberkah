@@ -6,7 +6,7 @@ export const useAuth = () => {
   return {
     id: data?.id ?? "",
     email: data?.email ?? "",
-    name: data?.nama ?? "",
+    nama: data?.nama ?? "",
     role: data?.role ?? "KARYAWAN",
     isAuthenticated: Boolean(data?.id),
     isPending,

@@ -1,8 +1,8 @@
 import axios from "axios";
 import api from "../lib/axios/api";
-import type { ILogin, IUser } from "../types/types";
+import type { ILogin, IUser, LoginResponse } from "../types/types";
 
-export const loginUser = async (data: ILogin): Promise<IUser> => {
+export const loginUser = async (data: ILogin): Promise<LoginResponse> => {
   try {
     const res = await api.post("/auth/login", data);
     return res.data;

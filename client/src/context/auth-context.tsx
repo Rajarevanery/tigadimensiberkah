@@ -4,7 +4,7 @@ import type { Role } from "../types/types";
 type AuthContextType = {
   id: string;
   email: string;
-  name: string;
+  nama: string;
   role: Role;
   isAuthenticated: boolean;
   isPending: boolean;
