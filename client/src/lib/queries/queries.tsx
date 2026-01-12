@@ -5,5 +5,7 @@ export const useGetUser = () => {
   return useQuery({
     queryKey: ["user"],
     queryFn: async () => await getUser(),
+    retry: false,
+    staleTime: 5 * 60 * 1000,
   });
 };

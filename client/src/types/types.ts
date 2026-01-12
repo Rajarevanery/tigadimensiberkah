@@ -3,7 +3,7 @@ export type ILogin = {
   password: string;
 };
 
-export type Role = "ADMIN" | "KARYAWAN";
+export type Role = "ADMIN" | "KARYAWAN" | null;
 
 export type IUser = {
   id: string;

@@ -27,7 +27,7 @@ function App() {
         <Route path="*" element={<ErrorPage />} />
         <Route path="loading" element={<Loading />} />
 
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path="/webapp" element={<WebAppLayout />}>

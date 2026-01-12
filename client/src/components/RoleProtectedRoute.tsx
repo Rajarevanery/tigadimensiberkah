@@ -12,7 +12,7 @@ export default function RoleProtectedRoute({
 
   if (isPending) return <Loading />;
 
-  if (!isAuthenticated) return <Navigate to="/login" replace />;
+  if (!isAuthenticated) return <Navigate to="/" replace />;
 
   if (!allowedRoles.includes(role)) return <Navigate to="/403" replace />;
 

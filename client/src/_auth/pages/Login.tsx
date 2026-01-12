@@ -5,11 +5,12 @@ import { toast } from "react-toastify";
 import { MdOutlineEmail } from "react-icons/md";
 import { TbEye, TbEyeOff, TbLockPassword } from "react-icons/tb";
 import { ImSpinner8 } from "react-icons/im";
-import { useNavigate } from "react-router";
+import { Navigate } from "react-router";
+import { useAuthContext } from "../../context/auth-context";
 
 const Login = () => {
   const { mutateAsync: loginUser, isPending } = useLogin();
-  const navigate = useNavigate();
+  const { isAuthenticated } = useAuthContext();
 
   const [user, setUser] = useState<ILogin>({
     email: "",
@@ -25,6 +26,10 @@ const Login = () => {
     }));
   };
 
+  if (isAuthenticated) {
+    return <Navigate to="/webapp/dashboard" replace />;
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -39,13 +44,8 @@ const Login = () => {
     try {
       const response = await loginUser(user);
 
-      console.log(response);
-
-      if (response.user.nama) {
-        navigate("/webapp/dashboard");
-        return toast.success(
-          `Login Berhasil, selamat datang ${response.user.nama}`
-        );
+      if (response.auth) {
+        toast.success(`Login Berhasil, selamat datang ${response.user.nama}`);
       }
     } catch (error) {
       toast.error("Login gagal");
