@@ -7,3 +7,9 @@ export const generateAccessToken = (data: IJWTPayload) => {
     expiresIn: env.refreshTokenExpiresIn,
   });
 };
+
+export const generateRefreshToken = (userId: string) => {
+  return jwt.sign({ id: userId }, env.refreshJwtSecret, {
+    expiresIn: env.refreshTokenExpiresIn,
+  });
+};

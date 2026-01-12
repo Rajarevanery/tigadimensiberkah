@@ -26,6 +26,8 @@ const Login = () => {
     }));
   };
 
+  if (isPending) return null;
+
   if (isAuthenticated) {
     return <Navigate to="/webapp/dashboard" replace />;
   }

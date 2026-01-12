@@ -7,7 +7,9 @@ export default function ProtectedRoute() {
 
   if (isPending) return <Loading />;
 
-  if (!isAuthenticated) return <Navigate to="/" replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
   return <Outlet />;
 }

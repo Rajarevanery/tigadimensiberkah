@@ -20,16 +20,21 @@ export const loginUser = async (data: ILogin): Promise<LoginResponse> => {
   }
 };
 
+// export const getUser = async (): Promise<IUser | null> => {
+//   try {
+//     const res = await api.get("/auth/me");
+//     return res.data.user;
+//   } catch (err) {
+//     if (axios.isAxiosError(err)) {
+//       if (err.response?.status === 401) {
+//         return null;
+//       }
+//     }
+//     throw err;
+//   }
+// };
 export const getUser = async (): Promise<IUser | null> => {
-  try {
-    const res = await api.get("/auth/me");
-    return res.data.user;
-  } catch (err) {
-    if (axios.isAxiosError(err)) {
-      if (err.response?.status === 401) {
-        return null;
-      }
-    }
-    throw err;
-  }
+  const res = await api.get("/auth/me");
+  return res.data.user;
 };
+
