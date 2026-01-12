@@ -54,3 +54,8 @@ export const getUser = async (): Promise<IUser | null> => {
   const res = await api.get("/auth/me");
   return res.data.user;
 };
+
+export const getAllUser = async () => {
+  const res = await api.get("/auth/user/all");
+  return res.data.users;
+};

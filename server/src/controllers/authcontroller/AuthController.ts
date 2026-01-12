@@ -164,7 +164,16 @@ export const getAllUser = async (req: AuthRequest, res: Response) => {
       select: {
         nama: true,
         role: true,
-        wilayah: true,
+        createdAt: true,
+        wilayah: {
+          select: {
+            wilayah: {
+              select: {
+                nama_wilayah: true,
+              },
+            },
+          },
+        },
       },
     });
 

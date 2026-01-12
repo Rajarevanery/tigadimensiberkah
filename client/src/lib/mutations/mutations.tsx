@@ -8,7 +8,7 @@ export const useLogin = () => {
     mutationFn: (data: ILogin) => loginUser(data),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["user"],
+        queryKey: ["auth", "me"],
       });
     },
   });
@@ -19,7 +19,7 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: () => logoutUser(),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
     },
   });
 };

@@ -16,6 +16,6 @@ router.post("/login", login);
 router.post("/refresh", refresh);
 router.post("/logout", logout);
 router.get("/me", verifyJwt, getUser);
-router.get("/all", verifyJwt, verifyRole([Role.ADMIN]), getAllUser);
+router.get("/user/all", verifyJwt, verifyRole([Role.ADMIN]), getAllUser);
 
 export default router;

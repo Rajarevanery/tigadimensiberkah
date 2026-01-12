@@ -16,3 +16,16 @@ export type LoginResponse = {
   auth: boolean;
   user: IUser;
 };
+
+export type IWilayah = {
+  nama_wilayah: string;
+};
+
+export type IUserWilayah = {
+  wilayah: IWilayah;
+};
+
+export type IUserWithWilayah = IUser & {
+  createdAt: string;
+  wilayah: IUserWilayah[];
+};

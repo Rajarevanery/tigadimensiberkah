@@ -5,7 +5,7 @@ const WebAppLayout = () => {
   return (
     <section className="flex flex-1 flex-col min-h-screen p-6">
       <NavigationBar />
-      <div className="flex flex-1">
+      <div className="flex flex-1 mt-6">
         <Outlet />
       </div>
     </section>

@@ -3,8 +3,6 @@ import { useGetUser } from "../lib/queries/queries";
 export const useAuth = () => {
   const { data, isPending, isError } = useGetUser();
 
-  console.log(data)
-
   return {
     id: data?.id ?? "",
     email: data?.email ?? "",

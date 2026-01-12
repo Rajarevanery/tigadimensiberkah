@@ -1,11 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
-import { getUser } from "../../api/AuthApi";
+import { getAllUser, getUser } from "../../api/AuthApi";
 
 export const useGetUser = () => {
   return useQuery({
-    queryKey: ["user"],
+    queryKey: ["auth", "me"],
     queryFn: async () => await getUser(),
     retry: false,
     staleTime: 0,
+  });
+};
+
+export const useGetAllUser = () => {
+  return useQuery({
+    queryKey: ["users"],
+    queryFn: async () => await getAllUser(),
+    staleTime: 5000 * 60
   });
 };
