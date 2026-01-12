@@ -3,8 +3,7 @@ import { prisma } from "lib/prisma";
 import { generateAccessToken } from "lib/utils";
 import bcrypt from "bcrypt";
 import { AuthRequest, ILoginRequest } from "types/types";
-import { access_jwt_secret } from "config/db.config";
-import jwt from "jsonwebtoken";
+import { env } from "config/env";
 
 export const login = async (
   req: Request<{}, any, ILoginRequest>,
@@ -40,13 +39,13 @@ export const login = async (
 
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
+        secure: env.nodeEnv === "production",
         sameSite: "strict",
-        maxAge: 1000 * 60 * 60 * 24,
+        maxAge: env.accessTokenCookieMaxAge,
       });
 
       res.status(200).json({
         auth: true,
-        token: accessToken,
         user: { id, userEmail, role, nama },
       });
     } else {

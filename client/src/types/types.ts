@@ -14,6 +14,5 @@ export type IUser = {
 
 export type LoginResponse = {
   auth: boolean;
-  token: string;
   user: IUser;
 };

@@ -1,6 +1,6 @@
+import { env } from "config/env";
 import { Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { access_jwt_secret } from "../config/db.config";
 import { AuthRequest, IJWTPayload } from "types/types";
 
 export function verifyJwt(req: AuthRequest, res: Response, next: NextFunction) {
@@ -12,7 +12,7 @@ export function verifyJwt(req: AuthRequest, res: Response, next: NextFunction) {
   }
 
   try {
-    const decoded = jwt.verify(token, access_jwt_secret) as IJWTPayload;
+    const decoded = jwt.verify(token, env.accessJwtSecret) as IJWTPayload;
 
     req.user = decoded;
     next();
