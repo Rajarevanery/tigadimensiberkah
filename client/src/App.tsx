@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import { ToastContainer } from "react-toastify";
 import ErrorPage from "./_global/ErrorPage";
 import Loading from "./_global/Loading";
@@ -24,10 +24,14 @@ function App() {
       />
 
       <Routes>
+        {/* Default Rerouting  */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
+        {/* Error / Global Page */}
         <Route path="*" element={<ErrorPage />} />
         <Route path="loading" element={<Loading />} />
 
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
 
         <Route element={<ProtectedRoute />}>
           <Route path="/webapp" element={<WebAppLayout />}>

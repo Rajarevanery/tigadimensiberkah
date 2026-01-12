@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { ILogin } from "../../types/types";
-import { loginUser } from "../../api/AuthApi";
+import { loginUser, logoutUser } from "../../api/AuthApi";
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
@@ -10,6 +10,16 @@ export const useLogin = () => {
       queryClient.invalidateQueries({
         queryKey: ["user"],
       });
+    },
+  });
+};
+
+export const useLogout = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: () => logoutUser(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });
 };

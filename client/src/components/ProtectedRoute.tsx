@@ -5,10 +5,11 @@ import { useAuthContext } from "../context/auth-context";
 export default function ProtectedRoute() {
   const { isAuthenticated, isPending } = useAuthContext();
 
-  if (isPending) return <Loading />;
 
+  if (isPending) return <Loading />;
+  
   if (!isAuthenticated) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/login" replace />;
   }
 
   return <Outlet />;

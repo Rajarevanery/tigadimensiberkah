@@ -147,12 +147,12 @@ export const getUser = async (req: AuthRequest, res: Response) => {
       },
     });
 
-    if (!user) {
+    if (!req.user) {
       res.status(404).json({ message: "User not found" });
       return;
     }
 
-    res.json({ user });
+    res.status(200).json({ user });
   } catch {
     res.status(500).json({ message: "Error" });
   }

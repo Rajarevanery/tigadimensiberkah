@@ -7,6 +7,7 @@ import { TbEye, TbEyeOff, TbLockPassword } from "react-icons/tb";
 import { ImSpinner8 } from "react-icons/im";
 import { Navigate } from "react-router";
 import { useAuthContext } from "../../context/auth-context";
+import Loading from "../../_global/Loading";
 
 const Login = () => {
   const { mutateAsync: loginUser, isPending } = useLogin();
@@ -26,7 +27,7 @@ const Login = () => {
     }));
   };
 
-  if (isPending) return null;
+  if (isPending) return <Loading />;
 
   if (isAuthenticated) {
     return <Navigate to="/webapp/dashboard" replace />;
