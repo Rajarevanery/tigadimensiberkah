@@ -157,3 +157,26 @@ export const getUser = async (req: AuthRequest, res: Response) => {
     res.status(500).json({ message: "Error" });
   }
 };
+
+export const getAllUser = async (req: AuthRequest, res: Response) => {
+  try {
+    const users = await prisma.user.findMany({
+      select: {
+        nama: true,
+        role: true,
+        wilayah: true,
+      },
+    });
+
+    if (!req.user) {
+      res.status(404).json({ message: "Unauthorized" });
+      return;
+    }
+
+    res.status(200).json({ users });
+  } catch (error) {
+    res.status(500).json({
+      message: "Error",
+    });
+  }
+};

@@ -6,16 +6,18 @@ import Login from "./_auth/pages/Login";
 import WebAppLayout from "./_webapp/layout/WebAppLayout";
 import Dashboard from "./_webapp/pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import RoleProtectedRoute from "./components/RoleProtectedRoute";
+import AllKaryawan from "./_webapp/pages/karyawan/AllKaryawan";
 
 function App() {
   return (
     <main className="flex min-h-screen">
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={2500}
         hideProgressBar
         newestOnTop={false}
-        closeOnClick={false}
+        closeOnClick={true}
         rtl={false}
         pauseOnFocusLoss
         draggable
@@ -36,6 +38,10 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/webapp" element={<WebAppLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
+
+            <Route element={<RoleProtectedRoute allowedRoles={["ADMIN"]} />}>
+              <Route path="karyawan" element={<AllKaryawan />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
