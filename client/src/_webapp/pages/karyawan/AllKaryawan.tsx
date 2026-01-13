@@ -7,10 +7,12 @@ import { BsFillGridFill } from "react-icons/bs";
 import { GoListUnordered } from "react-icons/go";
 import { useState } from "react";
 import KaryawanTable from "./components/KaryawanTable";
+import CreateKaryawanModal from "./components/CreateKaryawanModal";
 
 const AllKaryawan = () => {
   const { data, isPending } = useGetAllUser();
   const [listView, setListView] = useState<string>("list");
+  const [openCreateModal, setOpenCreateModal] = useState<boolean>(false);
 
   if (isPending) return <Loading />;
 
@@ -40,7 +42,10 @@ const AllKaryawan = () => {
             <button className="cursor-pointer">Download</button>
           </div>
 
-          <div className="flex flex-row border border-black/20 p-3 px-6 rounded-lg items-center gap-4 hover:bg-black hover:text-white transition cursor-pointer">
+          <div
+            onClick={() => setOpenCreateModal((prevState) => !prevState)}
+            className="flex flex-row border border-black/20 p-3 px-6 rounded-lg items-center gap-4 hover:bg-black hover:text-white transition cursor-pointer"
+          >
             <i>
               <IoPeople size={20} />
             </i>
@@ -76,6 +81,12 @@ const AllKaryawan = () => {
       {/* TABEL KARYAWAN */}
       <KaryawanTable usersData={data} />
       {/* TABEL KARYAWAN */}
+
+      {/* DIALOGUE CREATE KARYAWAN */}
+      {openCreateModal && (
+        <CreateKaryawanModal setOpenCreateModal={setOpenCreateModal} />
+      )}
+      {/* DIALOGUE CREATE KARYAWAN */}
     </section>
   );
 };

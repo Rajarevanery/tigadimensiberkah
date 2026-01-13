@@ -70,6 +70,47 @@ export const login = async (
   }
 };
 
+export const createUser = async (
+  req: AuthRequest,
+  res: Response
+): Promise<void> => {
+  const { nama, email, password, currentPassword, role } = req.body;
+
+  if (password !== currentPassword) {
+    res.status(400).json({ msg: "Passwords doesnt match" });
+    return;
+  }
+
+  if (!nama || !email || !password || !role) {
+    res.status(400).json({ msg: "Missing required fields" });
+    return;
+  }
+
+  try {
+    const existing = await prisma.user.findUnique({ where: { email } });
+
+    if (existing) {
+      res.status(409).json({ msg: "Email dipake" });
+      return;
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await prisma.user.create({
+      data: {
+        nama,
+        email,
+        password: hashedPassword,
+        role,
+      },
+    });
+
+    res.status(201).json({ msg: "User berhasil dibuat" });
+  } catch (error) {
+    res.status(500).json({ msg: "Internal server error" });
+  }
+};
+
 export const refresh = async (req: Request, res: Response): Promise<void> => {
   try {
     const refreshToken = req.cookies.refreshToken;
