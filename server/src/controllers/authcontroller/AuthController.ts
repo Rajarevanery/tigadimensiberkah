@@ -74,7 +74,7 @@ export const createUser = async (
   req: AuthRequest,
   res: Response
 ): Promise<void> => {
-  const { nama, email, password, currentPassword, role } = req.body;
+  const { nama, email, password, currentPassword, wilayahId, role } = req.body;
 
   if (password !== currentPassword) {
     res.status(400).json({ msg: "Passwords doesnt match" });
@@ -90,13 +90,13 @@ export const createUser = async (
     const existing = await prisma.user.findUnique({ where: { email } });
 
     if (existing) {
-      res.status(409).json({ msg: "Email dipake" });
+      res.status(409).json({ msg: "Email sudah dipakai" });
       return;
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await prisma.user.create({
+    const createdUser = await prisma.user.create({
       data: {
         nama,
         email,
@@ -104,6 +104,15 @@ export const createUser = async (
         role,
       },
     });
+
+    if (wilayahId) {
+      await prisma.userWilayah.create({
+        data: {
+          userId: createdUser.id,
+          wilayahId: wilayahId,
+        },
+      });
+    }
 
     res.status(201).json({ msg: "User berhasil dibuat" });
   } catch (error) {

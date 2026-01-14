@@ -1,10 +1,22 @@
 import type React from "react";
+import { useGetAllWilayah } from "../../../../lib/queries/queries";
+import { BsSearch } from "react-icons/bs";
+import { IoChevronDownOutline, IoChevronUpOutline } from "react-icons/io5";
+import { useState } from "react";
 
 const CreateKaryawanModal = ({
   setOpenCreateModal,
 }: {
   setOpenCreateModal: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const { data: semuaWilayah, isPending } = useGetAllWilayah();
+
+  const [openWilayahDropdown, setOpenWilayahDropdown] =
+    useState<boolean>(false);
+
+  if (isPending) return null;
+  console.log(semuaWilayah);
+
   return (
     <div className="bg-black/50 backdrop-blur-sm w-screen h-screen flex justify-center items-center absolute top-0 left-0 p-4">
       <div className="bg-white rounded-lg p-7 w-full max-w-lg">
@@ -67,7 +79,10 @@ const CreateKaryawanModal = ({
                 </option>
               </select>
             </div>
-            <div className="flex flex-col">
+            <div
+              onMouseLeave={() => setOpenWilayahDropdown(false)}
+              className="flex flex-col"
+            >
               <label htmlFor="" className="font-semibold">
                 <span>Wilayah</span>
                 <span className="text-sm opacity-50">
@@ -75,20 +90,70 @@ const CreateKaryawanModal = ({
                   - Optional (ini bisa diganti nanti)
                 </span>
               </label>
-              <select
-                name=""
+              {/* <select
+                name="wilayah"
                 id=""
                 className="border border-black/20 p-2 rounded-lg "
               >
                 <option></option>
-                <option>Kemang</option>
-                <option className="">Titan Arum</option>
-              </select>
+                {semuaWilayah.map(
+                  ({
+                    id,
+                    nama_wilayah,
+                  }: {
+                    id: string;
+                    nama_wilayah: string;
+                  }) => (
+                    <option key={id}>{nama_wilayah}</option>
+                  )
+                )}
+              </select> */}
+
+              <div className="relative">
+                <div
+                  onClick={() => setOpenWilayahDropdown(true)}
+                  className="border border-black/20 p-2 rounded-lg outline-none w-full flex flex-row gap-2 items-center"
+                >
+                  <input
+                    placeholder="Wilayah"
+                    type="text"
+                    className="outline-none w-full border-none"
+                  />
+
+                  <i>
+                    <IoChevronDownOutline />
+                  </i>
+                </div>
+                {openWilayahDropdown && (
+                  <div className="absolute border border-black/20 bg-white p-2 rounded-lg outline-none w-full flex flex-col gap-2 z-50 pt-2">
+                    {semuaWilayah.map(
+                      ({
+                        id,
+                        nama_wilayah,
+                      }: {
+                        id: string;
+                        nama_wilayah: string;
+                      }) => (
+                        <div
+                          key={id}
+                          className="flex flex-row gap-2 items-center"
+                        >
+                          <input value={id} type="checkbox" name="wilayah" />
+                          <label htmlFor={nama_wilayah}>{nama_wilayah}</label>
+                        </div>
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
             </div>
           </fieldset>
 
           <div className="flex flex-row gap-4 justify-end mt-4 items-center">
-            <button onClick={() => setOpenCreateModal(false)} className="border border-black/20 p-2 px-4 rounded-full cursor-pointer">
+            <button
+              onClick={() => setOpenCreateModal(false)}
+              className="border border-black/20 p-2 px-4 rounded-full cursor-pointer"
+            >
               Cancel
             </button>
             <button className="bg-black text-white p-2 px-4 rounded-full cursor-pointer">
