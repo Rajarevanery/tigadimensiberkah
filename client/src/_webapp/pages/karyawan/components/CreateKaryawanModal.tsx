@@ -74,6 +74,10 @@ const CreateKaryawanModal = ({
       return toast.error(`Field ${missingValues.join(", ")} is empty`);
     }
 
+    if(userData.password !== userData.currentPassword) {
+      return toast.error('Password dan Currentpassword tidak sesuai!')
+    }
+
     try {
       await createUser(userData);
       toast.success("User berhasil dibuat");
