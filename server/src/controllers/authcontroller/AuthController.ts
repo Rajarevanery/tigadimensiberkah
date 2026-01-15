@@ -96,23 +96,26 @@ export const createUser = async (
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const createdUser = await prisma.user.create({
-      data: {
-        nama,
-        email,
-        password: hashedPassword,
-        role,
-      },
-    });
-
-    if (wilayahId) {
-      await prisma.userWilayah.create({
+    await prisma.$transaction(async (tx) => {
+      const createdUser = await tx.user.create({
         data: {
-          userId: createdUser.id,
-          wilayahId: wilayahId,
+          nama,
+          email,
+          password: hashedPassword,
+          role,
         },
       });
-    }
+
+      if (Array.isArray(wilayahId) && wilayahId.length > 0) {
+        await tx.userWilayah.createMany({
+          data: wilayahId.map((id: string) => ({
+            userId: createdUser.id,
+            wilayahId: id,
+          })),
+          skipDuplicates: true,
+        });
+      }
+    });
 
     res.status(201).json({ msg: "User berhasil dibuat" });
   } catch (error) {

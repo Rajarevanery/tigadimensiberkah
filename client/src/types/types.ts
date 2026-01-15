@@ -29,3 +29,12 @@ export type IUserWithWilayah = IUser & {
   createdAt: string;
   wilayah: IUserWilayah[];
 };
+
+export type CreateUserPayload = {
+  nama: string;
+  email: string;
+  password: string;
+  currentPassword: string;
+  role: string;
+  wilayahId?: string[];
+};

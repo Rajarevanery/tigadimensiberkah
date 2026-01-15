@@ -5,6 +5,7 @@ type KaryawanTableProps = {
 };
 
 const KaryawanTable = ({ usersData }: KaryawanTableProps) => {
+
   return (
     <table className="table-auto w-full mt-4 text-start rounded-lg overflow-hidden">
       <thead className="bg-zinc-900 text-white text-left">

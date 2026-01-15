@@ -1,6 +1,11 @@
 import axios from "axios";
 import api from "../lib/axios/api";
-import type { ILogin, IUser, LoginResponse } from "../types/types";
+import type {
+  CreateUserPayload,
+  ILogin,
+  IUser,
+  LoginResponse,
+} from "../types/types";
 
 export const loginUser = async (data: ILogin): Promise<LoginResponse> => {
   try {
@@ -58,4 +63,9 @@ export const getUser = async (): Promise<IUser | null> => {
 export const getAllUser = async () => {
   const res = await api.get("/auth/user/all");
   return res.data.users;
+};
+
+export const createUser = async (data: CreateUserPayload) => {
+  const res = await api.post("/auth/user/create", data);
+  return res.data;
 };
