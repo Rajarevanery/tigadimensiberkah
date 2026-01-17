@@ -8,6 +8,7 @@ import { GoListUnordered } from "react-icons/go";
 import { useState } from "react";
 import KaryawanTable from "./components/KaryawanTable";
 import CreateKaryawanModal from "./components/CreateKaryawanModal";
+import KaryawanCard from "./components/KaryawanCard";
 
 const AllKaryawan = () => {
   const { data, isPending } = useGetAllUser();
@@ -78,9 +79,14 @@ const AllKaryawan = () => {
         </div>
       </div>
 
-      {/* TABEL KARYAWAN */}
-      <KaryawanTable usersData={data} />
-      {/* TABEL KARYAWAN */}
+      {/* DATA KARYAWAN */}
+      {listView === "list" ? (
+        <KaryawanTable usersData={data} />
+
+      ) : (
+        <KaryawanCard usersData={data} />
+      )}
+      {/* DATA KARYAWAN */}
 
       {/* DIALOGUE CREATE KARYAWAN */}
       {openCreateModal && (
